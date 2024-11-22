@@ -16,7 +16,7 @@ class ClasseController extends Controller
         $classes = Classe::all();
 
         // Passer les classes à la vue
-        return view('pages.classes.index', compact('classes'));
+        return view('classes.index', compact('classes'));
     }
 
     /**
@@ -24,7 +24,7 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.classes.create');
     }
 
     /**
@@ -32,7 +32,11 @@ class ClasseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         // Validation des données
+         $validated = $request->validate([
+            'nom' => 'required|string|max:30',
+            'niveau' => 'required|string|max:30',
+        ]);
     }
 
     /**

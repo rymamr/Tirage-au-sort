@@ -10,6 +10,7 @@
     <header>
         <h1>Bienvenue dans l'application</h1>
         <!-- Vous pouvez ajouter un menu ou une barre de navigation ici -->
+        
     </header>
 
     <main>
