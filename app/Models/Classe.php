@@ -8,6 +8,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Class
@@ -21,9 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Class extends Model
+class Classe extends Model
 {
-	protected $table = 'PFX_classes';
+	use HasFactory, Notifiable;
+
+	#protected $table = 'PFX_classes';
 	protected $primaryKey = 'idclasse';
 	public $timestamps = false;
 
