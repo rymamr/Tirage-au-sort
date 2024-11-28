@@ -19,8 +19,12 @@ Route::get('/ma-page', function () {
     return view('ma-page');
 });
 
-Route::get('/schnaps', function () {
-    return view('schnaps');
+Route::get('/home', function () {
+    return View::make('pages.home');
+});
+
+Route::get('/about', function () {
+    return View::make('pages.about');
 });
 
 Route::get('/dashboard', function () {

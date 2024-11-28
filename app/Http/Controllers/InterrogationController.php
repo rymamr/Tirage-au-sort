@@ -12,7 +12,11 @@ class InterrogationController extends Controller
      */
     public function index()
     {
-        //
+        // Récupérer toutes les classes
+        $interrogations = Interrogation::all();
+
+        // Passer les classes à la vue
+        return view('interrogations.index', compact('interrogations'));
     }
 
     /**
@@ -20,7 +24,7 @@ class InterrogationController extends Controller
      */
     public function create()
     {
-        //
+        return view('interrogations.create');
     }
 
     /**
@@ -28,15 +32,29 @@ class InterrogationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date_heure' => 'required|date',
+            'duree' => 'required|integer',
+            'commentaire' => 'required|max:250',
+        ]);
+
+        // Créer l'interrogation avec les données validées
+        Interrogation::create($request->all());
+
+        return redirect()->route('interrogations.index')
+            ->with('success', 'Interrogation created successfully.');
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        
+        $interrogation = Interrogation::find($id);
+
+        return view('interrogations.show', compact('interrogation'));
     }
 
     /**
@@ -44,7 +62,10 @@ class InterrogationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       
+       $interrogation = Interrogation::find($id);
+
+       return view('interrogations.edit', compact('interrogation'));
     }
 
     /**
@@ -52,7 +73,19 @@ class InterrogationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validation des données
+        $request->validate([
+            'date_heure' => 'required|date',
+            'duree' => 'required|integer',
+            'commentaire' => 'required|max:250',
+        ]);
+
+        // Créer une nouvelle interrogation
+        $interrogation = Interrogation::find($id);
+        $interrogation->update($request->all());
+
+        return redirect()->route('interrogations.index')
+            ->with('success', 'Interrogation updated successfully.');
     }
 
     /**
@@ -60,6 +93,10 @@ class InterrogationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $interrogation = Interrogation::find($id);
+        $interrogation->delete();
+
+        return redirect()->route('interrogations.index')
+            ->with('success', 'Interrogation deleted successfully');
     }
 }

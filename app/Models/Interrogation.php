@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Interrogation extends Model
 {
-	protected $table = 'PFX_interrogations';
+	#protected $table = 'PFX_interrogations';
 	protected $primaryKey = 'idinterro';
 	public $timestamps = false;
 

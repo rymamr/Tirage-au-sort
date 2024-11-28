@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Utilisateur extends Model
 {
-	protected $table = 'PFX_utilisateurs';
+	#protected $table = 'PFX_utilisateurs';
 	protected $primaryKey = 'idutilisateur';
 	public $timestamps = false;
 
@@ -49,9 +49,9 @@ class Utilisateur extends Model
 		'idrole'
 	];
 
-	public function class()
+	public function classe()
 	{
-		return $this->belongsTo(Class::class, 'idclasse');
+		return $this->belongsTo(Classe::class, 'idclasse');
 	}
 
 	public function role()

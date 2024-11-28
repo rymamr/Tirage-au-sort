@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Cour extends Model
 {
-	protected $table = 'PFX_cours';
+	#protected $table = 'PFX_cours';
 	protected $primaryKey = 'idcours';
 	public $timestamps = false;
 
@@ -45,9 +45,9 @@ class Cour extends Model
 		'idclasse'
 	];
 
-	public function class()
+	public function classe()
 	{
-		return $this->belongsTo(Class::class, 'idclasse');
+		return $this->belongsTo(Classe::class, 'idclasse');
 	}
 
 	public function matiere()

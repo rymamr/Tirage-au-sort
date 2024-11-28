@@ -24,7 +24,7 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        return view('pages.classes.create');
+        return view('classes.create');
     }
 
     /**
@@ -32,11 +32,16 @@ class ClasseController extends Controller
      */
     public function store(Request $request)
     {
-         // Validation des données
-         $validated = $request->validate([
-            'nom' => 'required|string|max:30',
-            'niveau' => 'required|string|max:30',
-        ]);
+            $request->validate([
+                'nom' => 'required|max:255',
+                'niveau' => 'required',
+            ]);
+    
+            Classe::create($request->all());
+    
+            return redirect()->route('classes.index')
+                ->with('success', 'Class created successfully.');
+    
     }
 
     /**
@@ -44,7 +49,9 @@ class ClasseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $classe = Classe::find($id);
+
+        return view('classes.show', compact('classe'));
     }
 
     /**
@@ -52,7 +59,9 @@ class ClasseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $classe = Classe::find($id);
+
+        return view('classes.edit', compact('classe'));
     }
 
     /**
@@ -60,7 +69,16 @@ class ClasseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nom' => 'required|max:255',
+            'niveau' => 'required',
+        ]);
+
+        $classe = Classe::find($id);
+        $classe->update($request->all());
+
+        return redirect()->route('classes.index')
+            ->with('success', 'class updated successfully.');
     }
 
     /**
@@ -68,6 +86,10 @@ class ClasseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $classe = Classe::find($id);
+        $classe->delete();
+
+        return redirect()->route('classes.index')
+            ->with('success', 'Class deleted successfully');
     }
 }

@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Matiere extends Model
 {
-	protected $table = 'PFX_matieres';
+	#protected $table = 'PFX_matieres';
 	protected $primaryKey = 'idmatiere';
 	public $timestamps = false;
 

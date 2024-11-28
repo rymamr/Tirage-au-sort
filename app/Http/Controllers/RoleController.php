@@ -12,7 +12,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        // Récupérer toutes les classes
+        $roles = Role::all();
+
+        // Passer les classes à la vue
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -20,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('roles.create');
     }
 
     /**

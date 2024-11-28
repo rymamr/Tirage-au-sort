@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cours;
+use App\Models\Matiere; // Modèle pour PFX_matieres
+use App\Models\Classe; // Modèle pour PFX_classes
 
 class CoursController extends Controller
 {
@@ -12,7 +14,11 @@ class CoursController extends Controller
      */
     public function index()
     {
-        //
+        // Récupérer tous les cours
+        $cours = Cours::all();
+
+        // Retourner la vue avec les cours
+        return view('cours.index', compact('cours'));
     }
 
     /**
@@ -20,7 +26,12 @@ class CoursController extends Controller
      */
     public function create()
     {
-        //
+        // Récupérer toutes les matières et classes pour les afficher dans le formulaire
+        $matieres = Matiere::all();
+        $classes = Classe::all();
+
+        // Retourner la vue de création avec les matières et classes
+        return view('cours.create', compact('matieres', 'classes'));
     }
 
     /**
@@ -28,7 +39,25 @@ class CoursController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation des données
+        $request->validate([
+            'nom' => 'required|max:30',
+            'date_heure' => 'required|date',
+            'idmatiere' => 'required|exists:PFX_matieres,idmatiere', // Vérifier que la matière existe
+            'idclasse' => 'required|exists:PFX_classes,idclasse', // Vérifier que la classe existe
+        ]);
+
+        // Création d'un nouveau cours
+        Cours::create([
+            'nom' => $request->nom,
+            'date_heure' => $request->date_heure,
+            'idmatiere' => $request->idmatiere,
+            'idclasse' => $request->idclasse,
+        ]);
+
+        // Rediriger vers la liste des cours avec un message de succès
+        return redirect()->route('cours.index')
+            ->with('success', 'Cours créé avec succès.');
     }
 
     /**
@@ -36,7 +65,11 @@ class CoursController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Trouver le cours par son ID
+        $cours = Cours::findOrFail($id);
+
+        // Retourner la vue de détail du cours
+        return view('cours.show', compact('cours'));
     }
 
     /**
@@ -44,7 +77,15 @@ class CoursController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Trouver le cours par son ID
+        $cours = Cours::findOrFail($id);
+
+        // Récupérer toutes les matières et classes pour les afficher dans le formulaire d'édition
+        $matieres = Matiere::all();
+        $classes = Classe::all();
+
+        // Retourner la vue d'édition avec les données du cours, matières et classes
+        return view('cours.edit', compact('cours', 'matieres', 'classes'));
     }
 
     /**
@@ -52,7 +93,28 @@ class CoursController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validation des données
+        $request->validate([
+            'nom' => 'required|max:30',
+            'date_heure' => 'required|date',
+            'idmatiere' => 'required|exists:PFX_matieres,idmatiere', // Vérifier que la matière existe
+            'idclasse' => 'required|exists:PFX_classes,idclasse', // Vérifier que la classe existe
+        ]);
+
+        // Trouver le cours par son ID
+        $cours = Cours::findOrFail($id);
+
+        // Mettre à jour le cours
+        $cours->update([
+            'nom' => $request->nom,
+            'date_heure' => $request->date_heure,
+            'idmatiere' => $request->idmatiere,
+            'idclasse' => $request->idclasse,
+        ]);
+
+        // Rediriger vers la liste des cours avec un message de succès
+        return redirect()->route('cours.index')
+            ->with('success', 'Cours mis à jour avec succès.');
     }
 
     /**
@@ -60,6 +122,14 @@ class CoursController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         // Trouver le cours par son ID
+         $cours = Cours::findOrFail($id);
+
+         // Supprimer le cours
+         $cours->delete();
+ 
+         // Rediriger vers la liste des cours avec un message de succès
+         return redirect()->route('cours.index')
+             ->with('success', 'Cours supprimé avec succès.');
     }
 }

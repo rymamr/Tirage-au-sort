@@ -12,7 +12,11 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        //
+        // Récupérer toutes les matières
+        $matieres = Matiere::all();
+
+        // Retourner la vue avec les matières
+        return view('matieres.index', compact('matieres'));
     }
 
     /**
@@ -20,7 +24,8 @@ class MatiereController extends Controller
      */
     public function create()
     {
-        //
+        // Retourner la vue de création d'une matière
+        return view('matieres.create');
     }
 
     /**
@@ -28,7 +33,18 @@ class MatiereController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation des données
+        $request->validate([
+            'nom' => 'required|max:30', // Le nom de la matière doit être obligatoire et ne pas dépasser 30 caractères
+        ]);
+
+        // Création de la matière
+        Matiere::create($request->all());
+            
+
+        // Rediriger vers la liste des matières avec un message de succès
+        return redirect()->route('matieres.index')
+            ->with('success', 'Matière créée avec succès.');
     }
 
     /**
@@ -36,7 +52,11 @@ class MatiereController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Trouver la matière par son ID
+        $matiere = Matiere::find($id);
+
+        // Retourner la vue de détail de la matière
+        return view('matieres.show', compact('matiere'));
     }
 
     /**
@@ -44,7 +64,11 @@ class MatiereController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       // Trouver la matière par son ID
+       $matiere = Matiere::find($id);
+
+       // Retourner la vue d'édition avec la matière à modifier
+       return view('matieres.edit', compact('matiere'));
     }
 
     /**
@@ -52,7 +76,19 @@ class MatiereController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validation des données
+        $request->validate([
+            'nom' => 'required|max:30', // Le nom de la matière doit être obligatoire et ne pas dépasser 30 caractères
+        ]);
+
+        // Trouver la matière par son ID
+        $matiere = Matiere::find($id);
+
+        // Mettre à jour la matière
+        $matiere->update($request->all());
+        // Rediriger vers la liste des matières avec un message de succès
+        return redirect()->route('matieres.index')
+            ->with('success', 'Matière mise à jour avec succès.');
     }
 
     /**
@@ -60,6 +96,14 @@ class MatiereController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+       // Trouver la matière par son ID
+       $matiere = Matiere::find($id);
+
+       // Supprimer la matière
+       $matiere->delete();
+
+       // Rediriger vers la liste des matières avec un message de succès
+       return redirect()->route('matieres.index')
+           ->with('success', 'Matière supprimée avec succès.');
     }
 }
