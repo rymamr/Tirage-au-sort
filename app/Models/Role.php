@@ -15,13 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idrole
  * @property string $typerole
  * 
- * @property Collection|Utilisateur[] $utilisateurs
+ * @property Collection|User[] $users
  *
  * @package App\Models
  */
 class Role extends Model
 {
-	#protected $table = 'PFX_roles';
+	protected $table = 'PFX_roles';
 	protected $primaryKey = 'idrole';
 	public $timestamps = false;
 
@@ -29,8 +29,8 @@ class Role extends Model
 		'typerole'
 	];
 
-	public function utilisateurs()
+	public function users()
 	{
-		return $this->hasMany(Utilisateur::class, 'idrole');
+		return $this->hasMany(User::class, 'idrole');
 	}
 }

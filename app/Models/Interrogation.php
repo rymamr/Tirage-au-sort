@@ -16,16 +16,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $date_heure
  * @property int $duree
  * @property string $commentaire
- * @property int $idutilisateur
+ * @property int $id
  * @property int $idcours
  * 
  * @property Cour $cour
- * @property Utilisateur $utilisateur
+ * @property User $user
  *
  * @package App\Models
  */
 class Interrogation extends Model
 {
+	
 	#protected $table = 'PFX_interrogations';
 	protected $primaryKey = 'idinterro';
 	public $timestamps = false;
@@ -33,7 +34,7 @@ class Interrogation extends Model
 	protected $casts = [
 		'date_heure' => 'datetime',
 		'duree' => 'int',
-		'idutilisateur' => 'int',
+		'id' => 'int',
 		'idcours' => 'int'
 	];
 
@@ -41,7 +42,7 @@ class Interrogation extends Model
 		'date_heure',
 		'duree',
 		'commentaire',
-		'idutilisateur',
+		'id',
 		'idcours'
 	];
 
@@ -50,8 +51,8 @@ class Interrogation extends Model
 		return $this->belongsTo(Cour::class, 'idcours');
 	}
 
-	public function utilisateur()
+	public function user()
 	{
-		return $this->belongsTo(Utilisateur::class, 'idutilisateur');
+		return $this->belongsTo(User::class, 'id');
 	}
 }

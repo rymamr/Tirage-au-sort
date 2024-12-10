@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cours;
+use App\Models\Cour;
 use App\Models\Matiere; // Modèle pour PFX_matieres
 use App\Models\Classe; // Modèle pour PFX_classes
 
-class CoursController extends Controller
+class CourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CoursController extends Controller
     public function index()
     {
         // Récupérer tous les cours
-        $cours = Cours::all();
+        $cours = Cour::all();
 
         // Retourner la vue avec les cours
         return view('cours.index', compact('cours'));
@@ -24,7 +24,7 @@ class CoursController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() 
     {
         // Récupérer toutes les matières et classes pour les afficher dans le formulaire
         $matieres = Matiere::all();
@@ -48,7 +48,7 @@ class CoursController extends Controller
         ]);
 
         // Création d'un nouveau cours
-        Cours::create([
+        Cour::create([
             'nom' => $request->nom,
             'date_heure' => $request->date_heure,
             'idmatiere' => $request->idmatiere,
@@ -66,7 +66,7 @@ class CoursController extends Controller
     public function show(string $id)
     {
         // Trouver le cours par son ID
-        $cours = Cours::findOrFail($id);
+        $cours = Cour::findOrFail($id);
 
         // Retourner la vue de détail du cours
         return view('cours.show', compact('cours'));
@@ -78,7 +78,7 @@ class CoursController extends Controller
     public function edit(string $id)
     {
         // Trouver le cours par son ID
-        $cours = Cours::findOrFail($id);
+        $cours = Cour::findOrFail($id);
 
         // Récupérer toutes les matières et classes pour les afficher dans le formulaire d'édition
         $matieres = Matiere::all();
@@ -102,7 +102,7 @@ class CoursController extends Controller
         ]);
 
         // Trouver le cours par son ID
-        $cours = Cours::findOrFail($id);
+        $cours = Cour::findOrFail($id);
 
         // Mettre à jour le cours
         $cours->update([
@@ -123,7 +123,7 @@ class CoursController extends Controller
     public function destroy(string $id)
     {
          // Trouver le cours par son ID
-         $cours = Cours::findOrFail($id);
+         $cours = Cour::findOrFail($id);
 
          // Supprimer le cours
          $cours->delete();

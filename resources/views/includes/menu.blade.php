@@ -4,6 +4,6 @@
     <li class="navigation-item"><a class="navigation-link" href="about">À propos</a></li> 
     <!-- Ajout de la gestion des ... -->
     <li class="navigation-item"><a class="navigation-link" href="{{ route('classes.index') }}">Gestion des classes</a></li>  
-    <li class="navigation-item"><a class="navigation-link" href="{{ route('interrogations.index') }}">Gestion des interrogations</a></li>
-    <li class="navigation-item"><a class="navigation-link" href="{{ route('matieres.index') }}">Gestion des matieres</a></li>  
+    <li class="navigation-item"><a class="navigation-link" href="{{ route('matieres.index') }}">Gestion des matieres</a></li>
+    <li class="navigation-item"><a class="navigation-link" href="{{ route('tirage.index') }}">Tirage !</a></li>  
 </ul>

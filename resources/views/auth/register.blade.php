@@ -2,6 +2,19 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- Role -->
+        <div>
+            <x-input-label for="role" :value="__('Vous êtes ?')" />
+            <select id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="role" required>
+        @foreach(App\Models\Role::all()->pluck('typerole', 'idrole') as $value => $text)
+            <option value="{{ $value }}" {{ old('role') == $value ? 'selected' : '' }}>{{ $text }}</option>
+        @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
+
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />

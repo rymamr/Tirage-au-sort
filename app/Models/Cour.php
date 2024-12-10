@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idmatiere
  * @property int $idclasse
  * 
- * @property Class $class
+ * @property Classe $classe
  * @property Matiere $matiere
  * @property Collection|Interrogation[] $interrogations
  * @property Collection|Assurer[] $assurers
@@ -60,8 +60,10 @@ class Cour extends Model
 		return $this->hasMany(Interrogation::class, 'idcours');
 	}
 
-	public function assurers()
-	{
-		return $this->hasMany(Assurer::class, 'idcours');
-	}
+	// Relation avec les enseignants (via table `assurer`)
+    public function enseignants()
+    {
+        return $this->belongsToMany(User::class, 'assurer', 'idcours', 'id');
+    }
+
 }

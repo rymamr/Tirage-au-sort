@@ -12,10 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  * Class Assurer
  * 
  * @property int $idcours
- * @property int $idutilisateur
+ * @property int $id
  * 
  * @property Cour $cour
- * @property Utilisateur $utilisateur
+ * @property User $user
  *
  * @package App\Models
  */
@@ -27,7 +27,7 @@ class Assurer extends Model
 
 	protected $casts = [
 		'idcours' => 'int',
-		'idutilisateur' => 'int'
+		'id' => 'int'
 	];
 
 	public function cour()
@@ -35,8 +35,8 @@ class Assurer extends Model
 		return $this->belongsTo(Cour::class, 'idcours');
 	}
 
-	public function utilisateur()
+	public function user()
 	{
-		return $this->belongsTo(Utilisateur::class, 'idutilisateur');
+		return $this->belongsTo(User::class, 'id');
 	}
 }
