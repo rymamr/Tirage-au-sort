@@ -39,7 +39,9 @@
                             <label for="idclasse" class="form-label">Classe</label>
                             <select class="form-select" id="idclasse" name="idclasse" required>
                                 @foreach ($classes as $classe)
-                                    <option value="{{ $classe->idclasse }}">{{ $classe->nom }}</option>
+                                    <option value="{{ $classe->idclasse }}">
+                                        {{ $classe->nom }} - Niveau : {{ $classe->niveau }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

@@ -28,22 +28,7 @@
                             <label for="date_heure" class="form-label">Date et Heure</label>
                             <input type="datetime-local" class="form-control" id="date_heure" name="date_heure" value="{{ $cours->date_heure }}" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="idmatiere" class="form-label">Matière</label>
-                            <select class="form-select" id="idmatiere" name="idmatiere" required>
-                                @foreach ($matieres as $matiere)
-                                    <option value="{{ $matiere->idmatiere }}" {{ $matiere->idmatiere == $cours->idmatiere ? 'selected' : '' }}>{{ $matiere->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idclasse" class="form-label">Classe</label>
-                            <select class="form-select" id="idclasse" name="idclasse" required>
-                                @foreach ($classes as $classe)
-                                    <option value="{{ $classe->idclasse }}" {{ $classe->idclasse == $cours->idclasse ? 'selected' : '' }}>{{ $classe->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        
                         <button type="submit" class="btn btn-warning">Mettre à jour le cours</button>
                     </form>
                 </div>

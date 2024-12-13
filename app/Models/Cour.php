@@ -52,7 +52,7 @@ class Cour extends Model
 
 	public function matiere()
 	{
-		return $this->belongsTo(Matiere::class, 'idmatiere');
+		return $this->belongsTo(Matiere::class, 'idmatiere'); 
 	}
 
 	public function interrogations()

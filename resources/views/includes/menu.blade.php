@@ -6,14 +6,17 @@
 
         @auth
             @if(Auth::user()->isGestionnaire())
-                <li><a href="{{ route('cours.index') }}" class="text-blue-600 hover:underline">Cours</a></li>
+                <li><a href="{{ route('profile.edit') }}" class="text-blue-600 hover:underline">Profil</a></li>
+                <li><a href="{{ route('users.index') }}" class="text-blue-600 hover:underline">Utilisateurs</a></li>
                 <li><a href="{{ route('classes.index') }}" class="text-blue-600 hover:underline">Classes</a></li>
                 <li><a href="{{ route('matieres.index') }}" class="text-blue-600 hover:underline">Matieres</a></li>
+                <li><a href="{{ route('cours.index') }}" class="text-blue-600 hover:underline">Cours</a></li>
             @elseif(Auth::user()->isFormateur())
+                <li><a href="{{ route('profile.edit') }}" class="text-blue-600 hover:underline">Mon Profil</a></li>
                 <li><a href="{{ route('cours.index') }}" class="text-blue-600 hover:underline">Cours</a></li>
             @elseif(Auth::user()->isApprenant()) 
-            <li><a href="{{ route('classes.show', ['class' => Auth::user()->idclasse]) }}" class="text-blue-600 hover:underline">Ma Classe</a></li>
-            <li><a href="{{ route('profile.edit') }}" class="text-blue-600 hover:underline">Mon Profil</a></li>
+                <li><a href="{{ route('profile.edit') }}" class="text-blue-600 hover:underline">Mon Profil</a></li>
+                <li><a href="{{ route('classes.show', ['class' => Auth::user()->idclasse]) }}" class="text-blue-600 hover:underline">Ma Classe</a></li>
             @endif
         @endauth
     </ul>
