@@ -1,38 +1,53 @@
-@extends('layouts.default')
+@extends('layouts.app')
+
+@section('header')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Ajouter un cours') }}
+        </h2>
+    </x-slot>
+@endsection
 
 @section('content')
-    <h1>Ajouter un Nouveau Cours</h1>
-
-    <form action="{{ route('cours.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="nom">Nom du Cours</label>
-            <input type="text" name="nom" id="nom" class="form-control" value="{{ old('nom') }}" required maxlength="30">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    <h3>{{ __('Créer un nouveau cours') }}</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('cours.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Nom du cours</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_heure" class="form-label">Date et Heure</label>
+                            <input type="datetime-local" class="form-control" id="date_heure" name="date_heure" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idmatiere" class="form-label">Matière</label>
+                            <select class="form-select" id="idmatiere" name="idmatiere" required>
+                                @foreach ($matieres as $matiere)
+                                    <option value="{{ $matiere->idmatiere }}">{{ $matiere->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="idclasse" class="form-label">Classe</label>
+                            <select class="form-select" id="idclasse" name="idclasse" required>
+                                @foreach ($classes as $classe)
+                                    <option value="{{ $classe->idclasse }}">{{ $classe->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Créer le cours</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="date_heure">Date et Heure</label>
-            <input type="datetime-local" name="date_heure" id="date_heure" class="form-control" value="{{ old('date_heure') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="idmatiere">Matière</label>
-            <select name="idmatiere" id="idmatiere" class="form-control" required>
-                @foreach($matieres as $matiere)
-                    <option value="{{ $matiere->idmatiere }}">{{ $matiere->nom }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="idclasse">Classe</label>
-            <select name="idclasse" id="idclasse" class="form-control" required>
-                @foreach($classes as $classe)
-                    <option value="{{ $classe->idclasse }}">{{ $classe->nom }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-    </form>
+    </div>
+</div>
 @endsection

@@ -13,8 +13,6 @@
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
 
-
-
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />

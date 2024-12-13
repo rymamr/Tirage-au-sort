@@ -10,8 +10,8 @@ use App\Http\Controllers\TirageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/tirage/{idcours}', [TirageController::class, 'index'])->name('tirage.index');
-Route::post('/tirage/{idcours}', [TirageController::class, 'store'])->name('tirage.store');
+Route::get('/tirage', [TirageController::class, 'showTirageForm'])->name('tirage.form');
+Route::post('/tirage', [TirageController::class, 'tirage'])->name('tirage');
 
 Route::get('/tirage', function () {
     return view('tirage.index'); // Page générique
@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::resource('users', UserController::class);
 Route::resource('classes', ClasseController::class);
 Route::resource('roles', RoleController::class);
@@ -50,5 +51,6 @@ Route::resource('users', UserController::class);
 Route::resource('matieres', MatiereController::class);
 Route::resource('cours', CourController::class);
 Route::resource('assurer', AssurerController::class);
+
 
 require __DIR__.'/auth.php';

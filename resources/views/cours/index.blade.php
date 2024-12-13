@@ -1,44 +1,56 @@
-@extends('layouts.default')
+@extends('layouts.app')
+
+@section('header')
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Gestion des cours') }}
+        </h2>
+@endsection
 
 @section('content')
-    <h1>Liste des Cours</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{{ route('cours.create') }}" class="btn btn-success btn-sm">Ajouter un cours</a>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>{{ __('Liste des cours') }}</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date et Heure</th>
+                                <th>Classe</th>
+                                <th>Matière</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cours as $coursItem)
+                                <tr>
+                                    <td>{{ $coursItem->nom }}</td>
+                                    <td>{{ $coursItem->date_heure }}</td>
+                                    <td>{{ $coursItem->classe->nom }}</td>
+                                    <td>{{ $coursItem->matiere->nom }}</td>
+                                    <td>
+                                        <a href="{{ route('cours.show', $coursItem->idcours) }}" class="btn btn-info btn-sm">Détails</a>
+                                        <a href="{{ route('cours.edit', $coursItem->idcours) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                        <form action="{{ route('cours.destroy', $coursItem->idcours) }}" method="post" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer ce cours ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    @endif
-
-    <a href="{{ route('cours.create') }}" class="btn btn-primary mb-3">Ajouter un Cours</a>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Date & Heure</th>
-                <th>Matière</th>
-                <th>Classe</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($cours as $item)
-                <tr>
-                    <td>{{ $item->nom }}</td>
-                    <td>{{ $item->date_heure }}</td>
-                    <td>{{ $item->matiere->nom }}</td>
-                    <td>{{ $item->classe->nom }}</td>
-                    <td>
-                        <a href="{{ route('cours.show', $item->id) }}" class="btn btn-info btn-sm">Voir</a>
-                        <a href="{{ route('cours.edit', $item->id) }}" class="btn btn-warning btn-sm">Modifier</a>
-                        <form action="{{ route('cours.destroy', $item->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    </div>
+</div>
 @endsection

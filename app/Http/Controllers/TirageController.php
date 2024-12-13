@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Classe;
+use App\Models\Cour;
 use App\Models\Interrogation;
 use Illuminate\Http\Request;
 
 class TirageController extends Controller
 {
-    public function tirage($idCours)
+    public function tirage($idcours)
     {
         // Récupérer la classe associée au cours
-        $classe = Classe::whereHas('cours', function ($query) use ($idCours) {
-            $query->where('idcours', $idCours);
+        $classe = Classe::whereHas('cours', function ($query) use ($idcours) {
+            $query->where('idcours', $idcours);
         })->first();
 
         // Récupérer les élèves de la classe
@@ -38,5 +40,14 @@ class TirageController extends Controller
         ]);
 
         return response()->json(['message' => 'Élève interrogé : ' . $eleveTire->name]);
+    }
+
+    public function showTirageForm()
+    {
+        // Récupérer tous les cours disponibles
+        $cours = Cour::all(); // Assurez-vous que le modèle Cour est importé
+
+        // Passer la variable $cours à la vue
+        return view('tirage.index', compact('cours')); // Assurez-vous que la vue est correctement référencée
     }
 }

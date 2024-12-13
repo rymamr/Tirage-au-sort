@@ -78,4 +78,55 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Assurer::class, 'id');
 	}
+	/**
+     * Vérifie si l'utilisateur a un rôle spécifique.
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return $this->role && $this->role->typerole === $role;
+    }
+
+    /**
+     * Vérifie si l'utilisateur a un des rôles spécifiés.
+     *
+     * @param array $roles
+     * @return bool
+     */
+    public function hasAnyRole(array $roles)
+    {
+        return $this->role && in_array($this->role->typerole, $roles);
+    }
+
+    /**
+     * Vérifie si l'utilisateur est Gestionnaire.
+     *
+     * @return bool
+     */
+	public function isGestionnaire()
+    {
+        return $this->hasRole('Gestionnaire');
+    }
+
+    /**
+     * Vérifie si l'utilisateur est Formateur.
+     *
+     * @return bool
+     */
+    public function isFormateur()
+    {
+        return $this->hasRole('Formateur');
+    }
+
+    /**
+     * Vérifie si l'utilisateur est Apprenant.
+     *
+     * @return bool
+     */
+	public function isApprenant()
+    {
+        return $this->hasRole('Apprenant');
+    }
 }

@@ -1,40 +1,49 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
-@section('contenu')
+@section('header')
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Gestion des matières') }}
+        </h2>
+@endsection
+
+@section('content')
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <div class="container-fluid">
-            <a class="navbar-brand h1" href={{ route('matieres.index') }}>Matières</a>
-            <div class="justify-end ">
-                <div class="col ">
-                    <a class="btn btn-sm btn-success" href={{ route('matieres.create') }}>Ajouter une matiere</a>
-                </div>
+            <a class="navbar-brand h1" href="{{ route('matieres.index') }}">Matières</a>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-sm btn-success" href="{{ route('matieres.create') }}">Ajouter une matière</a>
             </div>
+        </div>
     </nav>
-<div class="container mt-5">
-        <div class="row">
+
+    <div class="container mt-5">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="row row-cols-3 row-cols-md-3 g-4">
             @foreach ($matieres as $matiere)
-                <div class="col-sm">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title">{{ $matiere->nom }}</h5>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">{{ $matiere->nom }}</h5>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">{{ $matiere->niveau }}</p>
-                        </div>
-                        <div class="card-footer">
+                        <div class="card-footer text-center">
                             <div class="row">
-                                <div class="col-sm">
-                                <a href="{{ route('matieres.edit', $matiere->idmatiere) }}" class="btn btn-primary btn-sm">Edit</a>
+                                <div class="col-4">
+                                    <a href="{{ route('matieres.edit', $matiere->idmatiere) }}" class="btn btn-warning btn-sm w-100">Modifier</a>
                                 </div>
-                                <div class="col-sm">
-                                <a href="{{ route('matieres.show', $matiere->idmatiere) }}" class="btn btn-primary btn-sm">SHOW</a>
+                                <div class="col-4">
+                                    <a href="{{ route('matieres.show', $matiere->idmatiere) }}" class="btn btn-info btn-sm w-100">Voir</a>
                                 </div>
-                                <div class="col-sm">
-                                    <form action="{{ route('matieres.destroy', $matiere->idmatiere) }}" method="post">
+                                <div class="col-4">
+                                    <form action="{{ route('matieres.destroy', $matiere->idmatiere) }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer cette matière ?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">Supprimer</button>
                                     </form>
                                 </div>
                             </div>
@@ -44,9 +53,8 @@
             @endforeach
         </div>
     </div>
-</body>
-@stop
+@endsection
 
 @section('pied_page')
-     <p>Pied de page de la page d'Accueil</p>
+    <p class="text-center mt-5">&copy; 2024 Gestion des Matières. Tous droits réservés.</p>
 @stop

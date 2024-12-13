@@ -39,9 +39,9 @@ class ClasseController extends Controller
     
             Classe::create($request->all());
     
+            // Rediriger vers la liste des matières avec un message de succès
             return redirect()->route('classes.index')
-                ->with('success', 'Class created successfully.');
-    
+                ->with('success', 'Classe créée avec succès.');
     }
 
     /**
@@ -78,7 +78,8 @@ class ClasseController extends Controller
         $classe->update($request->all());
 
         return redirect()->route('classes.index')
-            ->with('success', 'class updated successfully.');
+            ->with('success', 'Classe mise à jour avec succès.');
+    
     }
 
     /**
@@ -90,6 +91,6 @@ class ClasseController extends Controller
         $classe->delete();
 
         return redirect()->route('classes.index')
-            ->with('success', 'Class deleted successfully');
+            ->with('success', 'Classe supprimée avec succès.');
     }
 }
