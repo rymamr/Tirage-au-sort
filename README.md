@@ -10,7 +10,8 @@ Cette application vous permet d’effectuer des sélections aléatoires en toute
 
 - **Laravel** (v11)
 - **PHP** (>= 8.1)
-- **MySQL** 
+- **MySQL**
+- **Vite** pour le front-end
 - **Node.js & npm**
 
 ---
