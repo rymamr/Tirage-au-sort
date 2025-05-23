@@ -108,3 +108,13 @@ php artisan config:cache
 
 Tu peux maintenant utiliser l’application ! 🎉  
 Merci d’avoir installé ce projet !
+
+
+---
+
+## 🗃 Script SQL
+
+Le script de création de la base de données est disponible ici :  
+🔗 [tirage_au_sort.sql](https://github.com/rymamr/Tirage-au-sort/blob/main/tirage_au_sort.sql)
+
+Vous pouvez l’importer directement dans votre outil de gestion de base de données
